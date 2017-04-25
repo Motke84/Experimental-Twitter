@@ -1,0 +1,13 @@
+<div>
+  <!--  <i [class]="isEmpty ? 'glyphicon glyphicon-star-empty' : 'glyphicon glyphicon-star' "
+       (click)="onClick($event)"> 
+    </i> -->
+
+     <i  class = "glyphicon"  [ngClass]= 
+     "{
+        ' glyphicon-star' : !isEmpty,
+        ' glyphicon-star-empty' : isEmpty
+      
+     }" (click)="onClick($event)">
+       </i> 
+</div> 

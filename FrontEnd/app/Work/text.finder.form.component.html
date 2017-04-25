@@ -1,0 +1,35 @@
+<form class="form" [formGroup]="replacerForm">
+    <div class="panel panel-primary word-panel">
+
+        <div class="panel-heading">
+            <button (click)="changeMode()" class='btn btn-default btn-header glyphicon' [ngClass]="{
+                 'glyphicon-ok' : editMode,
+                 'glyphicon-pencil' : !editMode    
+                }">
+                </button>
+            <button (click)="saveText()" class="btn btn-default btn-header glyphicon glyphicon-floppy-disk"></button>
+        </div>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <div *ngIf="!isLoading">
+                    <div *ngIf="!editMode">
+                        <span *ngFor="let word of allWords">
+                        <textFinderWord (wordsChanged)="reload($event)" [groupMode]="groupModeColor" [word] = "word"></textFinderWord>
+                    </span>
+                    </div>
+
+                    <div *ngIf="editMode">
+                        <textarea ngModel id="editor" name="editor" class="form-control" formControlName="editor" cols="50" rows="20" [(ngModel)]="text"></textarea>
+                    </div>
+                </div>
+                <div *ngIf="isLoading">
+                    <i class="centered-left fa fa-spinner fa-pulse fa-5x">  </i>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</form>

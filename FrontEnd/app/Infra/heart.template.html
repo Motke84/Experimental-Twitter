@@ -1,0 +1,7 @@
+<div>
+    <i [class] = "'glyphicon glyphicon-heart'"
+       [class.highlighted]="isFull"
+       (click)="onClick($event)"> 
+       </i>
+    <span>{{Likes |  number :'2.0-0'}} </span>
+</div> 

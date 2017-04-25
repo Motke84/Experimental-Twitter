@@ -1,0 +1,20 @@
+.word-panel
+{
+    width: 1000px;
+    margin-left: 20px;
+    background: black;
+}
+
+.btn-header
+{
+    color: #337ab7;
+    margin-left: 5px;
+   
+}
+
+.centered-left {
+ /* or absolute */
+  margin-left: 400;
+
+
+}
