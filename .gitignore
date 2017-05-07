@@ -1,0 +1,6 @@
+FrontEnd/node_modules
+BackEnd/packages
+BackEnd/TwitWebApi/bin
+BackEnd/TwitWebApi/obj
+BackEnd/.vs
+FrontEnd/dist
