@@ -4,7 +4,7 @@ import { TwitAutorsService } from './twitAutors.service';
 import { TwiterAutor } from '../Models/twiter.Autor.Model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
 
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router'
     template: `
  <div *ngIf = "TwitAutors.length > 0">
         <div *ngFor="let twitAutor of TwitAutors">           
-  <Twit [Data]="twitAutor" [ViewMode] = "viewMode"></Twit>  
+  <Twit (Deleted)="twitDeleted(twitAutor)" [Data]="twitAutor" [ViewMode] = "viewMode"></Twit>  
      </div>
         <div [hidden] = "TwitAutors.length > 0"> 
              Not Twits For Today!!! :-(
@@ -39,7 +39,8 @@ export class TwitListComponent implements OnInit, OnDestroy {
     routesSub;
 
     constructor(private twitAutorsService: TwitAutorsService,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private router: Router) {
         // //  this.TwitAutors = twitAutorsService.getItems();
         //   console.log(this.TwitAutors.length);
     }
@@ -75,5 +76,18 @@ export class TwitListComponent implements OnInit, OnDestroy {
 
     ngAfterContentInit() {
         //  this.twitAutorsService.loadAll();
+    }
+
+    twitDeleted(twit: TwiterAutor) {
+        if (confirm("Are you sure?")) {
+            this.isLoading = true;
+
+            this.twitAutorsService.deleteTwit(twit.Id).
+                delay(1000).
+                subscribe(data => {
+                    this.isLoading = false;
+                    this.TwitAutors = data;
+                });
+        }
     }
 }

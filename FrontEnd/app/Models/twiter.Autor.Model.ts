@@ -1,7 +1,7 @@
 
 
 
-export interface TwiterAutor {
+export class TwiterAutor {
   Id?: number;
   AutorImage: string;
   AutorUser: string;
@@ -9,5 +9,5 @@ export interface TwiterAutor {
   AutorComments: string;
   TotalLikes: number;
   CurrentUserLiked: boolean;
-
+  AutorEmail : string;
 }

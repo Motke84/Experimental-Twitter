@@ -1,17 +1,17 @@
-<form class="form" [formGroup]="userForm" (ngSubmit)="addUser()">
+<form class="form" [formGroup]="form" (ngSubmit)="save()">
 
     <div class="form-group">
         <label for="autorUser">User Name</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input ngModel id="autorUser" name="autorUser" type="text" class="form-control" formControlName="autorUser" />
+            <input [(ngModel)] = "twiterAutor.AutorUser" id="autorUser" name="autorUser" type="text" class="form-control" formControlName="autorUser" />
         </div>
-        <div *ngIf="userForm.controls.autorUser.touched && userForm.controls.autorUser.errors">
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorUser.errors.required">
+        <div *ngIf="form.controls.autorUser.touched && form.controls.autorUser.errors">
+            <div class="alert alert-danger" *ngIf="form.controls.autorUser.errors.required">
                 User Name is required
             </div>
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorUser.errors.minlength ">
-                User Name too short (required at least {{userForm.controls.autorUser.errors.minlength.requiredLength}} letters)
+            <div class="alert alert-danger" *ngIf="form.controls.autorUser.errors.minlength ">
+                User Name too short (required at least {{form.controls.autorUser.errors.minlength.requiredLength}} letters)
             </div>
         </div>
     </div>
@@ -20,23 +20,23 @@
         <div class="dropdown">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-address-book fa-fw"></i></span>
-                <input ngModel id="autorName" name="autorName" type="text" class="form-control" formControlName="autorName" data-toggle="dropdown"
+                <input [(ngModel)] = "twiterAutor.AutorName" id="autorName" name="autorName" type="text" class="form-control" formControlName="autorName" data-toggle="dropdown"
                     autocomplete="off" />
-                <ul *ngIf="!userForm.controls.autorName.errors && (dataForComplition)?.length" class="dropdown-menu scrollable-menu" role="menu">
+                <ul *ngIf="!form.controls.autorName.errors && (dataForComplition)?.length" class="dropdown-menu scrollable-menu" role="menu">
                     <li *ngFor="let comp of dataForComplition">
                         <a (click)="suggestionClick(comp)">{{comp.name}}</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div *ngIf="userForm.controls.autorName.touched && userForm.controls.autorName.errors">
+        <div *ngIf="form.controls.autorName.touched && form.controls.autorName.errors">
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorName.errors.required">
+            <div class="alert alert-danger" *ngIf="form.controls.autorName.errors.required">
                 Name is required
             </div>
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorName.errors.minlength ">
-                Name too short (required at least {{userForm.controls.autorName.errors.minlength.requiredLength}} letters)
+            <div class="alert alert-danger" *ngIf="form.controls.autorName.errors.minlength ">
+                Name too short (required at least {{form.controls.autorName.errors.minlength.requiredLength}} letters)
             </div>
 
         </div>
@@ -46,15 +46,15 @@
         <label for="email">Email</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-            <input id="email" name="email" ngModel type="text" class="form-control" formControlName="email" />
+            <input  [(ngModel)] = "twiterAutor.AutorEmail" id="email" name="email" type="text" class="form-control" formControlName="email" />
         </div>
-        <div *ngIf="userForm.controls.email.touched && userForm.controls.email.errors">
+        <div *ngIf="form.controls.email.touched && form.controls.email.errors">
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.email.errors.required">
+            <div class="alert alert-danger" *ngIf="form.controls.email.errors.required">
                 Email is required
             </div>
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.email.errors.pattern ">
+            <div class="alert alert-danger" *ngIf="form.controls.email.errors.pattern ">
                 Email not in the correct format
             </div>
 
@@ -65,23 +65,23 @@
         <label for="autorImage">Picture</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-picture-o fa-fw"></i></span>
-            <input id="autorImage" name="autorImage" ngModel type="text" class="form-control" formControlName="autorImage" (input)="imageChanged($event)"
+            <input [(ngModel)] = "twiterAutor.AutorImage" id="autorImage" name="autorImage" type="text" class="form-control" formControlName="autorImage" (input)="imageChanged($event)"
             />
         </div>
-        <div *ngIf="userForm.controls.autorImage.touched && userForm.controls.autorImage.errors">
+        <div *ngIf="form.controls.autorImage.touched && form.controls.autorImage.errors">
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorImage.errors.required">
+            <div class="alert alert-danger" *ngIf="form.controls.autorImage.errors.required">
                 Picture link is required
             </div>
 
-            <div class="alert alert-danger" *ngIf="userForm.controls.autorImage.errors.pattern ">
+            <div class="alert alert-danger" *ngIf="form.controls.autorImage.errors.pattern ">
                 Picture link not in the correct format
             </div>
 
 
         </div>
-        <div *ngIf="userForm.controls.autorImage.value">
-            <img class="img-rounded" src={{userForm.controls.autorImage.value}}>
+        <div *ngIf="form.controls.autorImage.value">
+            <img class="img-rounded" src={{form.controls.autorImage.value}}>
         </div>
     </div>
 
@@ -89,10 +89,10 @@
         <label for="autorComments">Comment</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-comments fa-fw"></i></span>
-            <textarea id="autorComments" name="autorComments" ngModel cols="30" rows="10" class="form-control" formControlName="autorComments">
+            <textarea [(ngModel)] = "twiterAutor.AutorComments" id="autorComments" name="autorComments" cols="30" rows="10" class="form-control" formControlName="autorComments">
             </textarea>
         </div>
-        <div class="alert alert-warning" *ngIf="userForm.controls.autorComments.touched && !userForm.controls.autorComments.valid">
+        <div class="alert alert-warning" *ngIf="form.controls.autorComments.touched && !form.controls.autorComments.valid">
             Comment is required</div>
 
         <div class="checkbox">
@@ -113,12 +113,12 @@
             </option>
         </select>
         </div>
-        <div class="alert alert-danger" *ngIf="userForm.controls.frequency.touched && !userForm.controls.frequency.valid">
+        <div class="alert alert-danger" *ngIf="form.controls.frequency.touched && !form.controls.frequency.valid">
             This field is required.
         </div>
     </div>
 
-    <button class="btn btn-primary" type="sumbit" [disabled]="!userForm.valid">Sumbit</button>
+    <button class="btn btn-primary" type="sumbit" [disabled]="!form.valid">Sumbit</button>
 </form>
 
 <!-- (change) = "log(userNameInput)" 

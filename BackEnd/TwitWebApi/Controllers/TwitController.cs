@@ -29,8 +29,8 @@ namespace TwitWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetTwits/{id}")]
-        //http://localhost:49882/api/Twiter/GetTwits/1
+        [Route("GetTwit/{id}")]
+        //http://localhost:49882/api/Twiter/GetTwit/1
         public IHttpActionResult GetTwit(int id)
         {
             var twit = Twits.FirstOrDefault(p => p.Id == id);
@@ -65,13 +65,44 @@ namespace TwitWebApi.Controllers
             if (twit == null)
                 return BadRequest();
 
-            var max = Twits.ToList().Max(e => e.Id);
-            twit.Id = max + 1;
-            Twits.Add(twit);
+            if (twit.Id > 0)
+            {
+                twit = Twits.FirstOrDefault(e => e.Id == twit.Id);
+                twit.AutorComments = newTwit.AutorComments;
+                twit.AutorEmail = newTwit.AutorEmail;
+                twit.AutorImage = newTwit.AutorImage;
+                twit.AutorName = newTwit.AutorName;
+                twit.AutorUser = newTwit.AutorUser;
+                twit.CurrentUserLiked = newTwit.CurrentUserLiked;
+                twit.TotalLikes = newTwit.TotalLikes;
+            }
+            else
+            {
+                var max = Twits.ToList().Max(e => e.Id);
+                twit.Id = max + 1;
+                Twits.Add(twit);
+            }
+
+            
             Twits.SaveToFile(_path);
 
             return Ok(newTwit);
         }
-        
+
+        [HttpGet]
+        [Route("DeleteTwit/{id}")]
+        //http://localhost:49882/api/Twiter/DeleteTwit/10
+        public IHttpActionResult DeleteTwit(int id)
+        {
+            var twit = Twits.FirstOrDefault(p => p.Id == id);
+            if (twit == null)
+                return (IHttpActionResult) NotFound();
+
+            Twits.Remove(twit);
+            Twits.SaveToFile(_path);
+
+            return Ok(Twits);
+        }
+
     }
 }

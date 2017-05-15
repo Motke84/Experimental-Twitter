@@ -27,27 +27,41 @@ import { UserFormComponent } from './Forms/user.form.component';
 import { SignUpFormComponent } from './Forms/signup-form.component';
 import { ChangePasswordFormComponent } from './Forms/change.password.form.component';
 
-import { TextFinderComponent } from './Work/text.finder.component';
+import { FollowersService } from './Services/followers.service';
 
 import { routing } from './app.routes';
+import { formRouting } from './Forms/form.routes';
+
 import { SpotifyService } from './Services/spotify.service';
 import { QuoteService } from './Services/quote.service.';
-import { TextFinderFormService } from './Work/text.finder.form.service'
-import { TextFinderFormComponent } from './Work/text.finder.form.component'
 
-import { TextFinderWordComponent } from './Work/text.finder.word.component'
-import { CustomdropdownDirective } from './Work/drop.down.context.directive';
+import { TwitFollowersComponent } from './Twiter/twit.followers.component';
+
+import { KeepChangesGuard } from './Services/keep.changes.guard.service';
+
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, routing, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    formRouting, //must be before main routing
+    routing,
+    ReactiveFormsModule],
+
   declarations: [AppComponent, HeartComponent,
-    NavigatorBarComponent, Collapse, CustomdropdownDirective,
+    NavigatorBarComponent, Collapse,
     ZippyComponent, VoterComponent,
     TwitListComponent, TwitComponent,
-    SummaryPipe, TextFinderComponent,
+    SummaryPipe, TwitFollowersComponent,
     MainFormComponent, UserFormComponent, SignUpFormComponent,
-    ChangePasswordFormComponent, TextFinderWordComponent, TextFinderFormComponent],
+    ChangePasswordFormComponent],
   bootstrap: [AppComponent],
-  providers: [TwitAutorsService, SpotifyService, QuoteService, TextFinderFormService]
+  providers:
+  [TwitAutorsService,
+    KeepChangesGuard,
+    SpotifyService,
+    QuoteService,
+    FollowersService]
 })
 export class AppModule { }

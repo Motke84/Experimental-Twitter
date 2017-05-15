@@ -16,35 +16,11 @@ export class TwitAutorsService {
   private autorsUrl = 'http://localhost:49882/api/Twiter';
 
 
-  private dataStore: {
-    autors: TwiterAutor[]
-  };
-  public autors;
-
   constructor(private http: Http) {
 
-    this.dataStore = { autors: [] };
-    this._autors = new BehaviorSubject([]);
-    this.autors = this._autors.asObservable();
-
 
   }
 
-
-
-  loadAll() {
-    this.http.get(`${this.autorsUrl}/GetAllTwits`).
-      debounceTime(300).
-      map(response => 
-      { 
-        console.log(response.json());
-      return response.json();
-  }).
-      subscribe(data => {
-        this.dataStore.autors = data;
-        this._autors.next(Object.assign({}, this.dataStore).autors);
-      }, error => console.log('Could not load autors.'));
-  }
 
 
   loadAllAuthors() : Observable<TwiterAutor[]> {
@@ -53,14 +29,23 @@ export class TwitAutorsService {
   }
 
 
-  create(twiterAutor: TwiterAutor) {
-    this.http.post(`${this.autorsUrl}/AddTwit`, twiterAutor)
-      .map(response => response.json()).
-      subscribe(data => {
-        this.dataStore.autors.push(data);
-        this._autors.next(Object.assign({}, this.dataStore).autors);
-      }, error => console.log('Could not create autors.'));
+  create(twiterAutor: TwiterAutor) : Observable<TwiterAutor[]> {
+    return this.http.post(`${this.autorsUrl}/AddTwit`, twiterAutor)
+      .map(response => response.json());
   }
+
+  getTwit(id : number) : Observable<TwiterAutor> {
+    return this.http.get(`${this.autorsUrl}/GetTwit/`+id).
+      map(response =>  response.json());
+  }
+
+ deleteTwit(id : number) : Observable<TwiterAutor[]> {
+    return this.http.get(`${this.autorsUrl}/DeleteTwit/`+id).
+      map(response =>  response.json());
+  }
+
+  }
+
 
   /* update(twiterAutor: TwiterAutor) {
      this.http.put(`${this.autorsUrl}/todos/${twiterAutor.id}`, JSON.stringify(twiterAutor))

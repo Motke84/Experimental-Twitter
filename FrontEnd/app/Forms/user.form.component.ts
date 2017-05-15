@@ -5,6 +5,8 @@ import { FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, FormC
 import { Observable } from 'rxjs/Rx'
 import { SpotifyService } from '../Services/spotify.service';
 import { QuoteService } from '../Services/quote.service.';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormComponent } from '../forms/form.component';
 
 @Component({
   selector: 'User-Form',
@@ -31,26 +33,32 @@ import { QuoteService } from '../Services/quote.service.';
         }
 
         .scrollable-menu {
-    height: auto;
-    max-height: 200px;
-    overflow-x: hidden;
-}
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
    
 
    `],
 })
 
 
-export class UserFormComponent implements OnInit, OnDestroy {
-  subscribe2;
+export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
+  userId: number;
 
+  hasUnsavedChanges(): Boolean {
+    return this.form.dirty;
+  }
+
+  form: FormGroup;
+  subscribe2;
+  twiterAutor = new TwiterAutor();
 
   frequencies = [
     { id: 1, label: 'Daily' },
     { id: 2, label: 'Weekly' },
     { id: 3, label: 'Monthly' }];
 
-  userForm: FormGroup;
   isCollapsed = true;
   dataForComplition: any;
   subscribe;
@@ -59,8 +67,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
   constructor(private twitAutorsService: TwitAutorsService,
     private spotifyService: SpotifyService,
     private quoteService: QuoteService,
-    private formBuilder: FormBuilder) {
-
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
     this.twitAutorsService = twitAutorsService;
 
@@ -69,7 +78,30 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.userForm = this.formBuilder.group({
+
+    this.initForm();
+    this.subscribeToEvent();
+
+
+    this.activatedRoute.params.subscribe(params => {
+      this.twiterAutor.Id = +params["id"];
+    });
+
+    if (!this.twiterAutor.Id)
+      return;
+
+    this.twitAutorsService.getTwit(this.twiterAutor.Id).
+      subscribe(data => {
+        this.twiterAutor = data;
+
+        this.spotifyService.searchArtists(data.AutorName).subscribe(spot =>
+          this.spotify = (<any>spot).artists.items[0])
+      });
+
+  }
+
+  initForm() {
+    this.form = this.formBuilder.group({
       autorUser: ['', Validators.compose([
         Validators.required,
         Validators.minLength(3)])],
@@ -91,11 +123,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
       frequency: ['', Validators.compose([
         Validators.required])]
     });
-    //autorImage   autorComments
 
-    this.subscribeToEvent();
   }
-
 
   suggestionClick(item) {
     this.spotify = item;
@@ -104,11 +133,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
     var userPhoto = images.length > 0 ?
       images[0]["url"] : '';
 
-    this.userForm.controls['autorName'].setValue(item["name"]);
-    this.userForm.controls['autorImage'].setValue(userPhoto);
+    this.form.controls['autorName'].setValue(item["name"]);
+    this.form.controls['autorImage'].setValue(userPhoto);
     console.log(item);
 
-    console.log(this.userForm.value);
+    console.log(this.form.value);
   }
 
   subscribeToEvent() {
@@ -126,8 +155,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
       console.log(<any>data);
       // console.log((<any>data).artists.items);
       this.dataForComplition = (<any>data).artists.items.
-      filter(e => e.images != null &&
-        e.images.length > 0);
+        filter(e => e.images != null &&
+          e.images.length > 0);
 
       //  console.log(this.dataForComplition);
       this.isCollapsed = this.dataForComplition > 0;
@@ -137,31 +166,40 @@ export class UserFormComponent implements OnInit, OnDestroy {
     console.log($("#generate"));
     var click = Observable.fromEvent($("#generate"), "change").
       map(e => (<any>e).target.checked).
-    //  filter(e => e == true).
+      //  filter(e => e == true).
       flatMap(value => value ? this.quoteService.getQuote() : Observable.empty());
 
- console.log(click);
+    console.log(click);
 
     this.subscribe2 = click.subscribe(data => {
-       
-      
+
+
       var tmp = (<any>data);
-   console.log(tmp);
-      if(tmp)
-        this.userForm.controls['autorComments'].setValue(tmp.value.joke);
-        else
-          this.userForm.controls['autorComments'].setValue(' ');
+      console.log(tmp);
+      if (tmp)
+        this.form.controls['autorComments'].setValue(tmp.value.joke);
+      else
+        this.form.controls['autorComments'].setValue(' ');
     });
   }
 
 
-  addUser() {
- 
-    if (this.userForm.valid) {
-      console.log(this.userForm.value);
-      this.userForm.value['TotalLikes'] = this.spotify["popularity"];
-      this.twitAutorsService.create(this.userForm.value as TwiterAutor);
-      this.userForm.reset(); 
+  save() {
+
+    if (this.form.valid) {
+      console.log(this.twiterAutor);
+      this.form.value['TotalLikes'] = this.spotify["popularity"];
+
+      this.twitAutorsService.create(this.twiterAutor).
+        subscribe(data => {
+
+           this.form.reset();
+           this.router.navigate(['twiter', 0]);
+
+        })
+
+
+
     }
   }
 

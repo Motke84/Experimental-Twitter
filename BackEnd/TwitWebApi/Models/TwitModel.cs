@@ -22,5 +22,7 @@ namespace TwitWebApi.Models
 
         public bool CurrentUserLiked { get; set; }
 
+        public string AutorEmail { get; set; }
+        
     }
 }

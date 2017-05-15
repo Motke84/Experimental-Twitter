@@ -15,7 +15,7 @@ import { Collapse } from '../Directives/collapse.directive';
     <div class="navbar-header">
       <div class="dropdown">
      
-  <button class="btn dropdown-toggle" 
+  <button class="btn btn-default dropdown-toggle" 
       type="button" 
       data-toggle="dropdown" >
   <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -30,20 +30,20 @@ import { Collapse } from '../Directives/collapse.directive';
 
 
         <Zippy [icon] = "images.twits"> 
-            <span class = "header" >Twiter</span> 
-            <a [routerLink]= "['twiter',0]" (click)="onClickNormal(event)" class = "body" >
+            <span  class = "header" >Twiter</span> 
+            <a  routerLinkActive = "is-route-active" [routerLink]= "['twiter',0]" (click)="onClickNormal(event)" class = "body" >
             Click to Normal view</a> 
         </Zippy>
 
           <Zippy [icon] = "images.thumbs"> 
             <span class = "header" >Thumbs</span> 
-            <a [routerLink]= "['twiter',1]" (click)="onClickThumb(event)" class = "body" >
+            <a routerLinkActive = "is-route-active" [routerLink]= "['twiter',1]" (click)="onClickThumb(event)" class = "body" >
             Click to Thumb view</a> 
         </Zippy>
 
         <Zippy [icon] = "images.forms"> 
             <span class = "header" >Forms</span> 
-            <a routerLink= "addAuthor" (click)="onClickUserForm(event)" class = "body" >
+            <a routerLinkActive = "is-route-active" routerLink= "addAuthor/new" (click)="onClickUserForm(event)" class = "body" >
             Click to Forms</a> 
         </Zippy>
 
@@ -61,6 +61,10 @@ import { Collapse } from '../Directives/collapse.directive';
           .dropdown
           {
             margin: 10px;
+          }
+
+          .is-route-active{
+              color: red;
           }
 
 
