@@ -106,9 +106,9 @@
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 
-            <select ngModel name="frequency" id="frequency" class="form-control" formControlName="frequency">
+            <select [(ngModel)] = "twiterAutor.MailFrequency" name="frequency" id="frequency" class="form-control" formControlName="frequency">
             <option value=""></option>
-            <option *ngFor="let frequency of frequencies" value="{{frequency.id}}">
+            <option *ngFor="let frequency of frequencies" value="{{frequency.label}}">
                 {{ frequency.label }}
             </option>
         </select>

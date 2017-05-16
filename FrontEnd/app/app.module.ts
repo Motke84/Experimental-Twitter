@@ -38,6 +38,8 @@ import { QuoteService } from './Services/quote.service.';
 import { TwitFollowersComponent } from './Twiter/twit.followers.component';
 
 import { KeepChangesGuard } from './Services/keep.changes.guard.service';
+import { SpinnerComponent } from './Infra/spinner.component';
+
 
 
 @NgModule({
@@ -55,7 +57,7 @@ import { KeepChangesGuard } from './Services/keep.changes.guard.service';
     TwitListComponent, TwitComponent,
     SummaryPipe, TwitFollowersComponent,
     MainFormComponent, UserFormComponent, SignUpFormComponent,
-    ChangePasswordFormComponent],
+    ChangePasswordFormComponent ,SpinnerComponent],
   bootstrap: [AppComponent],
   providers:
   [TwitAutorsService,

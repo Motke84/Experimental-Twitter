@@ -1,6 +1,6 @@
 import { Component, Output, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { TwitAutorsService } from '../Twiter/twitAutors.service';
-import { TwiterAutor } from '../Models/twiter.Autor.Model';
+import { Frequencies,TwiterAutor } from '../Models/twiter.Autor.Model';
 import { FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
 import { SpotifyService } from '../Services/spotify.service';
@@ -54,11 +54,7 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
   subscribe2;
   twiterAutor = new TwiterAutor();
 
-  frequencies = [
-    { id: 1, label: 'Daily' },
-    { id: 2, label: 'Weekly' },
-    { id: 3, label: 'Monthly' }];
-
+  frequencies = Frequencies
   isCollapsed = true;
   dataForComplition: any;
   subscribe;

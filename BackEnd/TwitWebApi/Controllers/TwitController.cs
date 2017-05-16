@@ -75,6 +75,7 @@ namespace TwitWebApi.Controllers
                 twit.AutorUser = newTwit.AutorUser;
                 twit.CurrentUserLiked = newTwit.CurrentUserLiked;
                 twit.TotalLikes = newTwit.TotalLikes;
+                twit.MailFrequency = newTwit.MailFrequency;
             }
             else
             {

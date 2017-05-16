@@ -1,16 +1,27 @@
-import { Component, Output, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core'
+import { Component, Output, Input, EventEmitter, OnDestroy, OnInit } from '@angular/core'
 import { TwitComponent } from './twit.component';
 import { TwitAutorsService } from './twitAutors.service';
-import { TwiterAutor } from '../Models/twiter.Autor.Model';
+import { TwiterAutor, Frequencies } from '../Models/twiter.Autor.Model';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router, ActivatedRoute } from '@angular/router'
-
+import { SpinnerComponent } from '../Infra/spinner.component';
+// @ts-check
 @Component({
 
     selector: 'TwitList',
     template: `
+
+ <select class="select form-control" (change)="filterTwits({ frequency: fr.value })" #fr>
+            <option value=""></option>
+            <option *ngFor="let frequency of frequencies" value="{{frequency.label}}" >
+                {{ frequency.label }}
+            </option>
+        </select>
+
  <div *ngIf = "TwitAutors.length > 0">
+
+
         <div *ngFor="let twitAutor of TwitAutors">           
   <Twit (Deleted)="twitDeleted(twitAutor)" [Data]="twitAutor" [ViewMode] = "viewMode"></Twit>  
      </div>
@@ -19,12 +30,23 @@ import { Router, ActivatedRoute } from '@angular/router'
         </div>
         
     </div>
-     <div *ngIf = "isLoading"> 
-           <i class="centered fa fa-spinner fa-pulse fa-5x">  </i> 
-        </div>
+     <spinner [isLoading] ="isLoading" >   </spinner> 
     `,
     //hidden - good for hidding small elements *ngIf- good for hidding big elements
     providers: [TwitAutorsService],
+    styles:
+    [` 
+       .select{
+             margin: 15px;
+             width: 150px;
+      
+             font-size-adjust: inherit;
+             text-align: center
+             
+        }
+   
+
+   `],
 
 })
 
@@ -33,18 +55,19 @@ import { Router, ActivatedRoute } from '@angular/router'
 export class TwitListComponent implements OnInit, OnDestroy {
     twitAutorsSub: any;
     TwitAutors: TwiterAutor[] = [];
-    TwitAutors2: TwiterAutor[];
+    filteredTwits: TwiterAutor[] = [];
+
     @Input('ViewMode') viewMode = 0;
     isLoading = true;
     routesSub;
+    frequencies = Frequencies;
+    currentFrequency = "";
 
     constructor(private twitAutorsService: TwitAutorsService,
         private activatedRoute: ActivatedRoute,
         private router: Router) {
-        // //  this.TwitAutors = twitAutorsService.getItems();
-        //   console.log(this.TwitAutors.length);
-    }
 
+    }
 
     ngOnInit() {
 
@@ -53,21 +76,21 @@ export class TwitListComponent implements OnInit, OnDestroy {
         });
 
 
+        this.loadAllTwits();
+    }
+
+    loadAllTwits(filter?) {
+        this.isLoading = true;
         this.twitAutorsSub = this.twitAutorsService.loadAllAuthors().
             delay(1000).
             subscribe(data => {
-                this.isLoading = false;
-                //  console.log(data);
-                this.TwitAutors = data;
-            })
+                 
+                this.TwitAutors = filter && filter["frequency"] != "" ? 
+                data.filter(e => e.MailFrequency == filter["frequency"]) : data;
 
-        //  this.TwitAutors = this.twitAutorsService.autors; // subscribe to entire collection
-
-
-
-        //  console.log(this.TwitAutors);
-        // load all todos
-
+                 console.log(this.TwitAutors);
+            }, error => console.log('Could not load all twits. ' + error),
+            () => this.isLoading = false);
     }
 
     ngOnDestroy() {
@@ -85,9 +108,16 @@ export class TwitListComponent implements OnInit, OnDestroy {
             this.twitAutorsService.deleteTwit(twit.Id).
                 delay(1000).
                 subscribe(data => {
-                    this.isLoading = false;
                     this.TwitAutors = data;
-                });
+                    this.filteredTwits = data.filter(e => e.MailFrequency == this.currentFrequency);
+                }, error => console.log('Could not delete twit. ' + error),
+                () => this.isLoading = false);
         }
+    }
+
+    filterTwits(value) {
+        console.log(value);
+        this.loadAllTwits(value)
+
     }
 }
