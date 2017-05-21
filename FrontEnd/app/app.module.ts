@@ -39,7 +39,7 @@ import { TwitFollowersComponent } from './Twiter/twit.followers.component';
 
 import { KeepChangesGuard } from './Services/keep.changes.guard.service';
 import { SpinnerComponent } from './Infra/spinner.component';
-
+import { PaginationComponent } from './Infra/pagination.component';
 
 
 @NgModule({
@@ -57,6 +57,7 @@ import { SpinnerComponent } from './Infra/spinner.component';
     TwitListComponent, TwitComponent,
     SummaryPipe, TwitFollowersComponent,
     MainFormComponent, UserFormComponent, SignUpFormComponent,
+    PaginationComponent,
     ChangePasswordFormComponent ,SpinnerComponent],
   bootstrap: [AppComponent],
   providers:

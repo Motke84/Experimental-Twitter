@@ -49,9 +49,11 @@ import { TwiterAutor } from '../Models/twiter.Autor.Model';
       <div>  
             <span>{{data?.AutorComments | summery:15 }}</span>
         </div>
-  
-          <Heart [TotalLikes] = "data?.TotalLikes" [Liked] = "data?.CurrentUserLiked" 
+        
+          <div class="hrt" >
+          <Heart  [TotalLikes] = "data?.TotalLikes" [Liked] = "data?.CurrentUserLiked" 
           (LikeChanged)="LikeHasChanged($event)"></Heart>
+           </div>
       </div>
     </div>
   </div>
@@ -108,6 +110,17 @@ import { TwiterAutor } from '../Models/twiter.Autor.Model';
                   margin-bottom: -15px;
                   color: #217dbb;
                   
+        }
+
+        .thumbnail 
+        {
+          height: 340px;
+        }
+
+        .hrt
+        {
+               position: absolute;
+                bottom: 7%;
         }
     
 

@@ -18,7 +18,9 @@ import { SpinnerComponent } from '../Infra/spinner.component';
                 {{ frequency.label }}
             </option>
         </select>
-
+        <div class ="body">
+        <pagination (page-changed)="pagingChanged($event)" [items] ="allTwitAutors" [page-size]= "maxTwits" > </pagination>
+    </div>
  <div *ngIf = "TwitAutors.length > 0">
 
 
@@ -55,8 +57,8 @@ import { SpinnerComponent } from '../Infra/spinner.component';
 export class TwitListComponent implements OnInit, OnDestroy {
     twitAutorsSub: any;
     TwitAutors: TwiterAutor[] = [];
-    filteredTwits: TwiterAutor[] = [];
-
+    allTwitAutors: TwiterAutor[] = [];
+    maxTwits = 3;
     @Input('ViewMode') viewMode = 0;
     isLoading = true;
     routesSub;
@@ -84,11 +86,13 @@ export class TwitListComponent implements OnInit, OnDestroy {
         this.twitAutorsSub = this.twitAutorsService.loadAllAuthors().
             delay(1000).
             subscribe(data => {
-                 
-                this.TwitAutors = filter && filter["frequency"] != "" ? 
-                data.filter(e => e.MailFrequency == filter["frequency"]) : data;
+              //  this.allTwitAutors = data;
 
-                 console.log(this.TwitAutors);
+                this.allTwitAutors = filter && filter["frequency"] != "" ?
+                    data.filter(e => e.MailFrequency == filter["frequency"]) : data;
+
+                this.pagingChanged(1);
+   
             }, error => console.log('Could not load all twits. ' + error),
             () => this.isLoading = false);
     }
@@ -98,7 +102,7 @@ export class TwitListComponent implements OnInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        //  this.twitAutorsService.loadAll();
+    
     }
 
     twitDeleted(twit: TwiterAutor) {
@@ -108,8 +112,12 @@ export class TwitListComponent implements OnInit, OnDestroy {
             this.twitAutorsService.deleteTwit(twit.Id).
                 delay(1000).
                 subscribe(data => {
-                    this.TwitAutors = data;
-                    this.filteredTwits = data.filter(e => e.MailFrequency == this.currentFrequency);
+                     this.allTwitAutors = data;
+                    //this.TwitAutors = data;
+                    this.TwitAutors = this.currentFrequency != "" ?
+                        data.filter(e => e.MailFrequency == this.currentFrequency) : data;
+                        this.pagingChanged(1);
+                    this.maxTwits = 5;
                 }, error => console.log('Could not delete twit. ' + error),
                 () => this.isLoading = false);
         }
@@ -118,6 +126,16 @@ export class TwitListComponent implements OnInit, OnDestroy {
     filterTwits(value) {
         console.log(value);
         this.loadAllTwits(value)
+
+    }
+
+    pagingChanged(page) {
+        var newList = [];
+
+        var startIndex = (page - 1) * this.maxTwits;
+
+      
+        this.TwitAutors = _.take(_.rest(this.allTwitAutors, startIndex), this.maxTwits);
 
     }
 }
