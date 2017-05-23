@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading" (click)="toggle($event)">
+        <img class="img-rounded" src= {{icon}}>
+        <ng-content select=".header"></ng-content>
+        <i class="pull-right glyphicon" [ngClass]="{
+                'glyphicon-chevron-up' : isExpanded,
+                'glyphicon-chevron-down' : !isExpanded}">
+        </i>
+    </div>
+    <div [collapse]="!isExpanded">
+        <div class="panel-body">
+            <ng-content select=".body"></ng-content>
+        </div>
+    </div>
+
+</div>

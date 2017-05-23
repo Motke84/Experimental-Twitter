@@ -1,0 +1,23 @@
+<select class="select form-control" (change)="filterTwits({ frequency: fr.value })" #fr>
+            <option value=""></option>
+            <option *ngFor="let frequency of frequencies" value="{{frequency.label}}" >
+                {{ frequency.label }}
+            </option>
+        </select>
+<div class="pagination">
+    <pagination (page-changed)="pagingChanged($event)" [items]="allTwitAutors" [page-size]="maxTwits"> </pagination>
+</div>
+<div *ngIf="TwitAutors.length > 0">
+
+
+    <div *ngFor="let twitAutor of TwitAutors">
+        <Twit (Deleted)="twitDeleted(twitAutor)" [Data]="twitAutor" [ViewMode]="viewMode"></Twit>
+    </div>
+    <div [hidden]="TwitAutors.length > 0">
+        Not Twits For Today!!! :-(
+    </div>
+
+</div>
+<spinner [isLoading]="isLoading"> </spinner>
+
+ <!--hidden - good for hidding small elements *ngIf- good for hidding big elements -->

@@ -7,54 +7,9 @@ import { FollowersService } from '../services/followers.service';
 
 @Component({
     selector: 'twit-followers',
-    template: `
-  <div class="body">
-
-  	<div  *ngIf="!isLoading">
-	    <div>
-		   <h2>@{{userName}}</h2>
-           <img class="avatar media-object" src={{user?.avatar_url}} >
-		</div>
-
-		<div>
-		   <h3>Followers</h3>
-		</div>
-
-		<div *ngFor="let follower of followers">
-		   <div class="media">
-			  <div class="media-left">
-				 <span>
-				 <img class="avatar" src= {{follower?.avatar_url}} >
-				 </span>
-			  </div>
-			  <div class="media-body">
-				 <h4 class="media-heading">{{follower?.login}}</h4>
-			  </div>
-		   </div>
-		</div>
-	</div>
-
-	<div *ngIf="isLoading">
-		<i class="centered fa fa-spinner fa-pulse fa-5x">  </i>
-	</div>
-
-</div>
-    `,
-    styles:
-    [`
-       .avatar	{
-                    width:	100;
-                    height:	100;
-                    border-radius:	100%;
-                    margin-bottom:  10px;
-                }	
-
-     
-        `],
+    templateUrl: 'app/Twiter/twit.followers.component.html',
+    styleUrls: ['app/Twiter/twit.followers.component.css'],
     providers: [FollowersService]
-
-
-    //   <img class="media-object" src="user.avatar_url" >
 })
 
 export class TwitFollowersComponent implements OnInit {

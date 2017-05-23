@@ -4,7 +4,7 @@ import { Component, OnInit ,Input} from '@angular/core';
     selector: 'spinner',
     template: 
     `
-    <div *ngIf = "isLoading"> 
+        <div *ngIf = "isLoading"> 
            <i class="centered fa fa-spinner fa-pulse fa-5x">  </i> 
         </div>
     `

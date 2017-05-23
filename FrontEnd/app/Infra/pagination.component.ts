@@ -2,32 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 
 @Component({
     selector: 'pagination',
-    template: `
-    <nav *ngIf = "numberOfPages > 0" aria-label="Page navigation">
-  <ul class="pagination">
-    <li  [class.disabled]="currentPage == 1" >
-      <a  (click)= "previous()" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-
-    </li>
-        <li *ngFor="let pg of pages" 
-         [class.active]="currentPage == pg" >
-            <a   (click) ="choose(pg)" >{{pg}}</a>
-        </li>
-
-    <li  [class.disabled]="currentPage === numberOfPages" >
-      <a  (click)= "next()" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-
-  </ul>
-</nav>`,
-    styles:
-    [`
-
-   `],
+    templateUrl: 'app/Infra/pagination.component.html'
 })
 
 export class PaginationComponent implements OnInit, OnChanges {

@@ -10,45 +10,9 @@ import { SpinnerComponent } from '../Infra/spinner.component';
 @Component({
 
     selector: 'TwitList',
-    template: `
-
- <select class="select form-control" (change)="filterTwits({ frequency: fr.value })" #fr>
-            <option value=""></option>
-            <option *ngFor="let frequency of frequencies" value="{{frequency.label}}" >
-                {{ frequency.label }}
-            </option>
-        </select>
-        <div class ="body">
-        <pagination (page-changed)="pagingChanged($event)" [items] ="allTwitAutors" [page-size]= "maxTwits" > </pagination>
-    </div>
- <div *ngIf = "TwitAutors.length > 0">
-
-
-        <div *ngFor="let twitAutor of TwitAutors">           
-  <Twit (Deleted)="twitDeleted(twitAutor)" [Data]="twitAutor" [ViewMode] = "viewMode"></Twit>  
-     </div>
-        <div [hidden] = "TwitAutors.length > 0"> 
-             Not Twits For Today!!! :-(
-        </div>
-        
-    </div>
-     <spinner [isLoading] ="isLoading" >   </spinner> 
-    `,
-    //hidden - good for hidding small elements *ngIf- good for hidding big elements
+    templateUrl: 'app/Twiter/twit-list.component.html',
+    styleUrls: ['app/Twiter/twit-list.component.css'],
     providers: [TwitAutorsService],
-    styles:
-    [` 
-       .select{
-             margin: 15px;
-             width: 150px;
-      
-             font-size-adjust: inherit;
-             text-align: center
-             
-        }
-   
-
-   `],
 
 })
 
@@ -113,17 +77,20 @@ export class TwitListComponent implements OnInit, OnDestroy {
                 delay(1000).
                 subscribe(data => {
                      this.allTwitAutors = data;
+                     
                     //this.TwitAutors = data;
                     this.TwitAutors = this.currentFrequency != "" ?
                         data.filter(e => e.MailFrequency == this.currentFrequency) : data;
                         this.pagingChanged(1);
-                    this.maxTwits = 5;
+
+                  
                 }, error => console.log('Could not delete twit. ' + error),
                 () => this.isLoading = false);
         }
     }
 
     filterTwits(value) {
+      //  this.allTwitAutors = []
         console.log(value);
         this.loadAllTwits(value)
 

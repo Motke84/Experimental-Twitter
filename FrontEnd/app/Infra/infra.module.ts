@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { StarComponent } from './star.component';
 import { HeartComponent } from './heart.component';

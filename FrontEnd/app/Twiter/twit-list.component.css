@@ -1,0 +1,14 @@
+.select{
+             margin: 15px;
+             width: 150px;
+      
+             font-size-adjust: inherit;
+             text-align: center
+             
+        }
+
+        .pagination
+        {
+             margin-left: 15px;
+             margin-top: -15px;
+        }

@@ -1,0 +1,57 @@
+.img-rounded {
+                width: 100px;
+                height: 100px;
+
+        }
+
+
+        .img-thumbnail {
+                width: 200px;
+                height: 200px;
+
+        }
+
+        b {
+                color: #ccc;
+                
+        }
+
+        .span {
+                    font-size: 12px;
+                  line-height: 10px;
+                
+        }
+
+        .media {
+            margin: 10px;
+        }
+
+        .edit-btn
+        {
+           position:relative; 
+                float: left;
+                  margin-bottom: -15px;
+                  color: #217dbb;
+                  
+        }
+
+        
+        .del-btn
+        {
+           position:relative; 
+                float: right;
+                  margin-bottom: -15px;
+                  color: #217dbb;
+                  
+        }
+
+        .thumbnail 
+        {
+          height: 340px;
+        }
+
+        .hrt
+        {
+               position: absolute;
+                bottom: 7%;
+        }
