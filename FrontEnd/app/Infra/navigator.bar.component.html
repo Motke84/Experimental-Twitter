@@ -6,8 +6,8 @@
 
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
   <span class="glyphicon glyphicon-menu-hamburger"></span>
-  </button>
-                <ng-content select=".title"></ng-content>
+  </button> 
+                <ng-content class="body title" select=".title"></ng-content>
                 <!-- <span>{{ titleObject.title | uppercase}} </span> 
    <span> Funds: {{ titleObject.funds | currency:'ILS':true:'2.2-2'}} </span> 
    <span> Date: {{ titleObject.date | date: 'dd MMM yyyy' }} </span> 

@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule,NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 
@@ -25,24 +26,30 @@ import { SpotifyService } from './Services/spotify.service';
 import { QuoteService } from './Services/quote.service.';
 import { FollowersService } from './Services/followers.service';
 import { KeepChangesGuard } from './Services/keep.changes.guard.service';
+import { AnimationameComponent } from "./Infra/animate.component";
 
 
 @NgModule({
   imports: [
     BrowserModule,
+     BrowserAnimationsModule,
+    NoopAnimationsModule,
     FormsModule,
     HttpModule,
     formRouting, //must be before main routing
     routing,
     ReactiveFormsModule,
-    InfraModule],
+    InfraModule 
+   ],
 
   declarations: [AppComponent,
-    TwitListComponent, TwitComponent,
+    TwitListComponent, 
+    TwitComponent,
     TwitFollowersComponent,
     UserFormComponent,
     SignUpFormComponent,
-    ChangePasswordFormComponent],
+    ChangePasswordFormComponent,
+    AnimationameComponent],
 
   bootstrap: [AppComponent],
 

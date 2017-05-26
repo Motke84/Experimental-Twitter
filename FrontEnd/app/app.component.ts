@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,VERSION } from '@angular/core';
 
 
 
@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   template: `
  
       <NavigatorBar (ViewModeChanged) = "ModeChanged($event)">
-      <span class = "title" > Angular 2!!! </span> 
+      <span class = "title" > {{titleObject.title}} </span> 
       </NavigatorBar>
    
       <router-outlet> </router-outlet>
@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   titleObject = {
-    title: " Angular 2!!! ",
+    title: "Angular: "+ VERSION["full"],
     funds: 102043.34,
     date: new Date(Date.now())
   };
@@ -35,7 +35,6 @@ export class AppComponent {
     this.viewMode = newValue.newValue;
 
     console.log(this.viewMode);
-
  
   }
 }
