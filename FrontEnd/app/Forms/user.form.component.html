@@ -4,7 +4,7 @@
         <label for="autorUser">User Name</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input [(ngModel)] = "twiterAutor.AutorUser" id="autorUser" name="autorUser" type="text" class="form-control" formControlName="autorUser" />
+            <input [(ngModel)] = "twiterAutor.autorUser" id="autorUser" name="autorUser" type="text" class="form-control" formControlName="autorUser" />
         </div>
         <div *ngIf="form.controls.autorUser.touched && form.controls.autorUser.errors">
             <div class="alert alert-danger" *ngIf="form.controls.autorUser.errors.required">
@@ -20,7 +20,7 @@
         <div class="dropdown">
             <div class="input-group margin-bottom-sm">
                 <span class="input-group-addon"><i class="fa fa-address-book fa-fw"></i></span>
-                <input [(ngModel)] = "twiterAutor.AutorName" id="autorName" name="autorName" type="text" class="form-control" formControlName="autorName" data-toggle="dropdown"
+                <input [(ngModel)] = "twiterAutor.autorName" id="autorName" name="autorName" type="text" class="form-control" formControlName="autorName" data-toggle="dropdown"
                     autocomplete="off" />
                 <ul *ngIf="!form.controls.autorName.errors && (dataForComplition)?.length" class="dropdown-menu scrollable-menu" role="menu">
                     <li *ngFor="let comp of dataForComplition">
@@ -46,7 +46,7 @@
         <label for="email">Email</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-            <input  [(ngModel)] = "twiterAutor.AutorEmail" id="email" name="email" type="text" class="form-control" formControlName="email" />
+            <input  [(ngModel)] = "twiterAutor.autorEmail" id="email" name="email" type="text" class="form-control" formControlName="email" />
         </div>
         <div *ngIf="form.controls.email.touched && form.controls.email.errors">
 
@@ -65,7 +65,7 @@
         <label for="autorImage">Picture</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-picture-o fa-fw"></i></span>
-            <input [(ngModel)] = "twiterAutor.AutorImage" id="autorImage" name="autorImage" type="text" class="form-control" formControlName="autorImage" (input)="imageChanged($event)"
+            <input [(ngModel)] = "twiterAutor.autorImage" id="autorImage" name="autorImage" type="text" class="form-control" formControlName="autorImage" (input)="imageChanged($event)"
             />
         </div>
         <div *ngIf="form.controls.autorImage.touched && form.controls.autorImage.errors">
@@ -89,7 +89,7 @@
         <label for="autorComments">Comment</label>
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-comments fa-fw"></i></span>
-            <textarea [(ngModel)] = "twiterAutor.AutorComments" id="autorComments" name="autorComments" cols="30" rows="10" class="form-control" formControlName="autorComments">
+            <textarea [(ngModel)] = "twiterAutor.autorComments" id="autorComments" name="autorComments" cols="30" rows="10" class="form-control" formControlName="autorComments">
             </textarea>
         </div>
         <div class="alert alert-warning" *ngIf="form.controls.autorComments.touched && !form.controls.autorComments.valid">
@@ -106,7 +106,7 @@
         <div class="input-group margin-bottom-sm">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 
-            <select [(ngModel)] = "twiterAutor.MailFrequency" name="frequency" id="frequency" class="form-control" formControlName="frequency">
+            <select [(ngModel)] = "twiterAutor.mailFrequency" name="frequency" id="frequency" class="form-control" formControlName="frequency">
             <option value=""></option>
             <option *ngFor="let frequency of frequencies" value="{{frequency.label}}">
                 {{ frequency.label }}

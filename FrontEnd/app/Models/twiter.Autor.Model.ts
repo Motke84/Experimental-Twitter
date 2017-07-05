@@ -2,15 +2,15 @@
 
 
 export class TwiterAutor {
-  Id?: number;
-  AutorImage: string;
-  AutorUser: string;
-  AutorName: string;
-  AutorComments: string;
-  TotalLikes: number;
-  CurrentUserLiked: boolean;
-  AutorEmail : string;
-  MailFrequency : string;
+  id?: number;
+  autorImage: string;
+  autorUser: string;
+  autorName: string;
+  autorComments: string;
+  totalLikes: number;
+  currentUserLiked: boolean;
+  autorEmail : string;
+  mailFrequency : string;
 }
 
 

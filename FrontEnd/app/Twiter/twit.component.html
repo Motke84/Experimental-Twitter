@@ -3,20 +3,20 @@
         <div class="media">
 
             <div class="media-left" (mouseover)="showEditButtons=true" (mouseleave)="showEditButtons=false">
-                <a [routerLink]="['../../addAuthor',data?.Id]" *ngIf="showEditButtons" id="edit" class="edit-btn glyphicon glyphicon-edit"></a>
+                <a [routerLink]="['../../addAuthor',data?.id]" *ngIf="showEditButtons" id="edit" class="edit-btn glyphicon glyphicon-edit"></a>
                 <a (click)="delete(event)" *ngIf="showEditButtons" id="del" class="del-btn fa fa-times fa-3"></a>
-                <a [routerLink]="['../../followers',data?.AutorUser]">
-                    <img class="img-rounded" src= {{data?.AutorImage}} >
+                <a [routerLink]="['../../followers',data?.autorUser]">
+                    <img class="img-rounded" src= {{data?.autorImage}} >
                 </a>
             </div>
 
             <div class="media-body">
-                <Strong class="media-heading">{{data?.AutorName}}</Strong>
-                <b class="media-heading">@{{data?.AutorUser}}</b>
+                <Strong class="media-heading">{{data?.autorName}}</Strong>
+                <b class="media-heading">@{{data?.autorUser}}</b>
                 <div>
                     <span>{{data.AutorComments | summery:10 }}</span>
                 </div>
-                <Heart [TotalLikes]="data?.TotalLikes" [Liked]="data?.CurrentUserLiked" (LikeChanged)="LikeHasChanged($event)"></Heart>
+                <Heart [TotalLikes]="data?.totalLikes" [Liked]="data?.currentUserLiked" (LikeChanged)="LikeHasChanged($event)"></Heart>
             </div>
 
         </div>
@@ -25,20 +25,20 @@
     <ng-template [ngSwitchCase]="1">
         <div class="col-sm-3 col-md-3 col-md-offset-0">
             <div class="thumbnail" (mouseover)="showEditButtons=true" (mouseleave)="showEditButtons=false">
-                <a [routerLink]="['../../addAuthor',data?.Id]" *ngIf="showEditButtons" id="edit" class="edit-btn glyphicon glyphicon-edit"></a>
+                <a [routerLink]="['../../addAuthor',data?.id]" *ngIf="showEditButtons" id="edit" class="edit-btn glyphicon glyphicon-edit"></a>
                 <a (click)="delete(event)" *ngIf="showEditButtons" id="del" class="del-btn fa fa-times fa-3"></a>
-                <a [routerLink]="['../../followers',data?.AutorUser]">
+                <a [routerLink]="['../../followers',data?.autorUser]">
                     <img class="img-thumbnail" src= {{data?.AutorImage}} >
                 </a>
                 <div class="caption">
-                    <Strong class="media-heading">{{data?.AutorName}}</Strong>
-                    <b class="media-heading">@{{data?.AutorUser}}</b>
+                    <Strong class="media-heading">{{data?.autorName}}</Strong>
+                    <b class="media-heading">@{{data?.autorUser}}</b>
                     <div>
-                        <span>{{data?.AutorComments | summery:15 }}</span>
+                        <span>{{data?.autorComments | summery:15 }}</span>
                     </div>
 
                     <div class="hrt">
-                        <Heart [TotalLikes]="data?.TotalLikes" [Liked]="data?.CurrentUserLiked" (LikeChanged)="LikeHasChanged($event)"></Heart>
+                        <Heart [TotalLikes]="data?.totalLikes" [Liked]="data?.currentUserLiked" (LikeChanged)="LikeHasChanged($event)"></Heart>
                     </div>
                 </div>
             </div>

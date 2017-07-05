@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitWebApi", "TwitWebApi\TwitWebApi.csproj", "{357F0E9D-17B3-4DC9-992C-2B5C3E333922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwiterWebApiCore", "TwiterWebApiCore\TwiterWebApiCore.csproj", "{74CC8F17-4E94-40CB-ADE8-F6D9EDF8E748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{357F0E9D-17B3-4DC9-992C-2B5C3E333922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{357F0E9D-17B3-4DC9-992C-2B5C3E333922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{357F0E9D-17B3-4DC9-992C-2B5C3E333922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74CC8F17-4E94-40CB-ADE8-F6D9EDF8E748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74CC8F17-4E94-40CB-ADE8-F6D9EDF8E748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74CC8F17-4E94-40CB-ADE8-F6D9EDF8E748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74CC8F17-4E94-40CB-ADE8-F6D9EDF8E748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

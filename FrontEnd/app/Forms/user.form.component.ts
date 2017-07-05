@@ -80,17 +80,17 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
 
 
     this.activatedRoute.params.subscribe(params => {
-      this.twiterAutor.Id = +params["id"];
+      this.twiterAutor.id = +params["id"];
     });
 
-    if (!this.twiterAutor.Id)
+    if (!this.twiterAutor.id)
       return;
 
-    this.twitAutorsService.getTwit(this.twiterAutor.Id).
+    this.twitAutorsService.getTwit(this.twiterAutor.id).
       subscribe(data => {
         this.twiterAutor = data;
 
-        this.spotifyService.searchArtists(data.AutorName).subscribe(spot =>
+        this.spotifyService.searchArtists(data.autorName).subscribe(spot =>
           this.spotify = (<any>spot).artists.items[0])
       });
 
@@ -184,7 +184,7 @@ export class UserFormComponent implements OnInit, OnDestroy, FormComponent {
 
     if (this.form.valid) {
       console.log(this.twiterAutor);
-      this.form.value['TotalLikes'] = this.spotify["popularity"];
+      this.form.value['TotalLikes'] = this.spotify ?  this.spotify["popularity"] : 30;
 
       this.twitAutorsService.create(this.twiterAutor).
         subscribe(data => {

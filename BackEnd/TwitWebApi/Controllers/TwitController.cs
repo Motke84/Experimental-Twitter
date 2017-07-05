@@ -33,7 +33,7 @@ namespace TwitWebApi.Controllers
         //http://localhost:49882/api/Twiter/GetTwit/1
         public IHttpActionResult GetTwit(int id)
         {
-            var twit = Twits.FirstOrDefault(p => p.Id == id);
+            var twit = Twits.FirstOrDefault(p => p.id == id);
             return twit == null ? (IHttpActionResult) NotFound() : Ok(twit);
         }
 
@@ -65,22 +65,22 @@ namespace TwitWebApi.Controllers
             if (twit == null)
                 return BadRequest();
 
-            if (twit.Id > 0)
+            if (twit.id > 0)
             {
-                twit = Twits.FirstOrDefault(e => e.Id == twit.Id);
-                twit.AutorComments = newTwit.AutorComments;
-                twit.AutorEmail = newTwit.AutorEmail;
-                twit.AutorImage = newTwit.AutorImage;
-                twit.AutorName = newTwit.AutorName;
-                twit.AutorUser = newTwit.AutorUser;
-                twit.CurrentUserLiked = newTwit.CurrentUserLiked;
-                twit.TotalLikes = newTwit.TotalLikes;
-                twit.MailFrequency = newTwit.MailFrequency;
+                twit = Twits.FirstOrDefault(e => e.id == twit.id);
+                twit.autorComments = newTwit.autorComments;
+                twit.autorEmail = newTwit.autorEmail;
+                twit.autorImage = newTwit.autorImage;
+                twit.autorName = newTwit.autorName;
+                twit.autorUser = newTwit.autorUser;
+                twit.currentUserLiked = newTwit.currentUserLiked;
+                twit.totalLikes = newTwit.totalLikes;
+                twit.mailFrequency = newTwit.mailFrequency;
             }
             else
             {
-                var max = Twits.ToList().Max(e => e.Id);
-                twit.Id = max + 1;
+                var max = Twits.ToList().Max(e => e.id);
+                twit.id = max + 1;
                 Twits.Add(twit);
             }
 
@@ -95,7 +95,7 @@ namespace TwitWebApi.Controllers
         //http://localhost:49882/api/Twiter/DeleteTwit/10
         public IHttpActionResult DeleteTwit(int id)
         {
-            var twit = Twits.FirstOrDefault(p => p.Id == id);
+            var twit = Twits.FirstOrDefault(p => p.id == id);
             if (twit == null)
                 return (IHttpActionResult) NotFound();
 

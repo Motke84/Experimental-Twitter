@@ -13,9 +13,9 @@ export class TwitAutorsService {
   private _autors: BehaviorSubject<TwiterAutor[]>;
   // public autors : Observable<TwiterAutor[]>
   private autorsUrl2 = 'http://588e065bf30c7212004f2c8a.mockapi.io/twiterAutors';
-  private autorsUrl = 'http://localhost:49882/api/Twiter';
+  //private autorsUrl = 'http://localhost:49882/api/Twiter';
 
-
+  private autorsUrl = 'http://localhost:54148/api/Twiter';
   constructor(private http: Http) {
 
 
@@ -23,28 +23,28 @@ export class TwitAutorsService {
 
 
 
-  loadAllAuthors() : Observable<TwiterAutor[]> {
+  loadAllAuthors(): Observable<TwiterAutor[]> {
     return this.http.get(`${this.autorsUrl}/GetAllTwits`).
-      map(response =>  response.json());
+      map(response => response.json());
   }
 
 
-  create(twiterAutor: TwiterAutor) : Observable<TwiterAutor[]> {
+  create(twiterAutor: TwiterAutor): Observable<TwiterAutor[]> {
     return this.http.post(`${this.autorsUrl}/AddTwit`, twiterAutor)
       .map(response => response.json());
   }
 
-  getTwit(id : number) : Observable<TwiterAutor> {
-    return this.http.get(`${this.autorsUrl}/GetTwit/`+id).
-      map(response =>  response.json());
+  getTwit(id: number): Observable<TwiterAutor> {
+    return this.http.get(`${this.autorsUrl}/GetTwit/` + id).
+      map(response => response.json());
   }
 
- deleteTwit(id : number) : Observable<TwiterAutor[]> {
-    return this.http.get(`${this.autorsUrl}/DeleteTwit/`+id).
-      map(response =>  response.json());
+  deleteTwit(id: number): Observable<TwiterAutor[]> {
+    return this.http.get(`${this.autorsUrl}/DeleteTwit/` + id).
+      map(response => response.json());
   }
 
-  }
+}
 
 
   /* update(twiterAutor: TwiterAutor) {
@@ -68,8 +68,5 @@ export class TwitAutorsService {
     }, error => console.log('Could not delete todo.'));
   }*/
 
-
-
-}
 
 

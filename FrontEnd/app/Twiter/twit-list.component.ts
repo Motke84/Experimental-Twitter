@@ -51,9 +51,9 @@ export class TwitListComponent implements OnInit, OnDestroy {
             delay(1000).
             subscribe(data => {
               //  this.allTwitAutors = data;
-
+                console.log(data);
                 this.allTwitAutors = filter && filter["frequency"] != "" ?
-                    data.filter(e => e.MailFrequency == filter["frequency"]) : data;
+                    data.filter(e => e.mailFrequency == filter["frequency"]) : data;
 
                 this.pagingChanged(1);
    
@@ -73,14 +73,14 @@ export class TwitListComponent implements OnInit, OnDestroy {
         if (confirm("Are you sure?")) {
             this.isLoading = true;
 
-            this.twitAutorsService.deleteTwit(twit.Id).
+            this.twitAutorsService.deleteTwit(twit.id).
                 delay(1000).
                 subscribe(data => {
                      this.allTwitAutors = data;
                      
                     //this.TwitAutors = data;
                     this.TwitAutors = this.currentFrequency != "" ?
-                        data.filter(e => e.MailFrequency == this.currentFrequency) : data;
+                        data.filter(e => e.mailFrequency == this.currentFrequency) : data;
                         this.pagingChanged(1);
 
                   
